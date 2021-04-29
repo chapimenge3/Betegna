@@ -5,9 +5,6 @@ from django.contrib.auth import login, authenticate
 
 from .forms import SignUpForm
 
-class Homepage(TemplateView):
-    template_name = 'index.html'
-    
 class Login(LoginView):
     redirect_authenticated_user = True
 
