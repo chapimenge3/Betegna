@@ -10,7 +10,7 @@ class Category(models.Model):
     category = models.CharField(_("Category"), max_length=50)
 
     def __str__(self) -> str:
-        return self.category
+        return self.category.title()
 
 
 class Item(models.Model):
@@ -18,6 +18,7 @@ class Item(models.Model):
     price = models.DecimalField(_("Price"), max_digits=10, decimal_places=2)
     description = models.CharField(
         _("Description"), max_length=200, blank=True, default="")
+    category = models.ForeignKey(Category, related_name='itemCategory', on_delete=models.SET_NULL, null=True)
     stars = models.IntegerField(_("Stars"))
     image = models.ImageField(
         _("Image"),
