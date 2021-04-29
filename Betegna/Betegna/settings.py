@@ -139,4 +139,4 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Authentication model
-AUTH_USER_MODEL = "authentications.User"
+AUTH_USER_MODEL = "Authentications.User"
