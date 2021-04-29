@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    'Authentications.apps.AuthenticationsConfig'
 ]
 
 MIDDLEWARE = [
@@ -136,3 +138,5 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Authentication model
+AUTH_USER_MODEL = "authentications.User"
