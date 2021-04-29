@@ -18,7 +18,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 
-    <title>Betegna</title>
+    <title>Betegna | Login</title>
 </head>
 
 <body>
@@ -52,10 +52,9 @@
                     <div class="card">
                         <div class="card-header">Login</div>
                         <div class="card-body">
-                            {% if messages %}
+                            {% if form.errors %}
                             <div class="alert alert-danger" role="alert">
-                                A simple danger alert—check it out!
-                                {{ message }}
+                                Your Username or Password is incorrect!
                               </div>
                               {% endif %}
                             <form method="post">

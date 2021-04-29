@@ -23,7 +23,6 @@ class User(AbstractUser):
 
     email = models.EmailField(
         _('email address'), unique=True, validators=[EmailValidator])
-    student_id = models.CharField(_("Student Id"), max_length=50, unique=True)
     phone = models.CharField(
         validators=[PHONE_REGEX], max_length=15, blank=True, null=True)
     sex = models.CharField(max_length=200, choices=(
@@ -37,7 +36,7 @@ class User(AbstractUser):
         null=True,
     )
     REQUIRED_FIELDS = [
-        'first_name', 'email', 'sex',
+        'first_name', 'email', 'sex', 
     ]
 
     def image_tag(self):
