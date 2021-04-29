@@ -40,16 +40,19 @@
             <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
             <li class="nav-item"><a class="nav-link" href="#!">Services</a></li>
             <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
-            {% if not user.authenticated %}
-            <li class="nav-item"><a class="nav-link" href="#!">Login</a></li>
+            {% if not user.is_authenticated %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
             {% else %}
-            <li class="nav-item"><a class="nav-link" href="#!">Logout</a></li>
-
+            <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
             {% endif %}
           </ul>
         </div>
       </div>
     </nav>
-    {% block content %} {% endblock content %} {% block js %} {% endblock js %}
+    {% block content %} {% endblock content %}
+    <footer class="py-5 bg-dark">
+      <div class="container"><p class="m-0 text-center text-white">Copyright &copy; betegna 2021</p></div>
+  </footer> 
+    {% block js %} {% endblock js %}
   </body>
 </html>
