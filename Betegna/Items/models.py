@@ -28,7 +28,8 @@ class Item(models.Model):
         return self.name
     
     def image_tag(self):
-        return mark_safe('<img src="%s" width="150" height="150"/>' % self.profile.url)
+        return mark_safe('<img src="%s" width="150" height="150"/>' % self.image.url)
 
     image_tag.short_description = 'Photo'
     image_tag.allow_tags = True
+
