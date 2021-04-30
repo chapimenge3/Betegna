@@ -1,7 +1,7 @@
 import random
 
 from django.shortcuts import render
-from django.views.generic import  TemplateView
+from django.views.generic import  TemplateView, DetailView
 
 
 from .models import Category, Item
@@ -28,3 +28,8 @@ class Homepage(TemplateView):
         # print(stars)
         
         return render(request, self.template_name, context)
+
+class ItemDetail(DetailView):
+    queryset = Item.objects.all()
+    template_name='item.html'
+    context_object_name = 'item'

@@ -1,0 +1,27 @@
+{% extends "_base.html" %}
+
+{% block css %}
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-1 py-5 mx-auto row justify-content-center">
+    <div class="col-lg-9 col-sm-11 ">
+        <div class="card pl-4 pl-md-5 pr-3">
+            <div class="row">
+                <div class="left-side col-md-5">
+                    <p class="pt-5 mb-0">Complete your look with </b></p>
+                    <h3 class="mb-0"><strong><b>{{ item.name }} </strong></h3> <small class="">{{item.description}}.</small><br> <button class="btn btn-pink mb-5">Shop Now</button>
+                </div>
+                <div class="right-side col-md-7 row justify-content-center">
+                    <div class="d-flex"> 
+                        <img  width="50%"
+                        height="50%" class="boy-img fit-image img-fluid" src="{{item.image.url}}"> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
