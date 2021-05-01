@@ -12,4 +12,4 @@ def item_directory_path(instance, filename):
 class CsrfExemptSessionAuthentication(SessionAuthentication):
 
     def enforce_csrf(self, request):
-        return  # To not perform the csrf check previously happening
+        return  
