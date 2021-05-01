@@ -32,6 +32,9 @@ INSTALLED_APPS = [
     
     'Authentications.apps.AuthenticationsConfig',
     'Items.apps.ItemsConfig',
+    
+    # 3rd party app
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -110,6 +113,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+APPEND_SLASH=False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -140,5 +144,5 @@ LOGOUT_REDIRECT_URL = 'index'
 
 # Stripe Keys
 
-STRIPE_Publishable_Key = os.environ['STRIPE_PUB_key']
-STRIPE_Secret_key = os.environ['STRIPE_PRIVATE_KEY']
+STRIPE_PUB_KEY = os.environ['STRIPE_PUB_key']
+STRIPE_SECRET_KEY = os.environ['STRIPE_PRIVATE_KEY']

@@ -1,27 +1,102 @@
-{% extends "_base.html" %}
+{% extends "_base.html" %} {% load static %} {% block css %}
 
-{% block css %}
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css"
+/>
+<link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+  crossorigin="anonymous"
+/>
+<link rel="stylesheet" href="{% static 'css/item.css' %}" />
+{% endblock %} {% block content %}
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-{% endblock %}
+<div
+  class="container d-flex justify-content-center"
+  style="margin-bottom: 10px"
+>
+  <form method="post">{% csrf_token %}</form>
 
-{% block content %}
-<div class="container-fluid px-1 py-5 mx-auto row justify-content-center">
-    <div class="col-lg-9 col-sm-11 ">
-        <div class="card pl-4 pl-md-5 pr-3">
-            <div class="row">
-                <div class="left-side col-md-5">
-                    <p class="pt-5 mb-0">Complete your look with </b></p>
-                    <h3 class="mb-0"><strong><b>{{ item.name }} </strong></h3> <small class="">{{item.description}}.</small><br> <button class="btn btn-pink mb-5">Shop Now</button>
-                </div>
-                <div class="right-side col-md-7 row justify-content-center">
-                    <div class="d-flex"> 
-                        <img  width="50%"
-                        height="50%" class="boy-img fit-image img-fluid" src="{{item.image.url}}"> </div>
-                </div>
-            </div>
+  <figure class="card card-product-grid card-lg">
+    <a href="#" class="img-wrap">
+      <img src="{{item.image.url}}" />
+    </a>
+    <figcaption class="info-wrap">
+      <div class="row">
+        <div class="col-md-8 col-xs-8">
+          <a href="#" class="title">{{item.name}}</a>
+          <span class="rated">Laptops</span>
         </div>
+        <div class="col-md-4 col-xs-4">
+          <div class="rating text-right">
+            {% with ''|center:item.stars as range %} {% for _ in range %}
+            <i class="fa fa-star"></i>
+            {% endfor %} {% endwith %}
+            <span class="rated">Rated {{item.stars}}/5</span>
+          </div>
+        </div>
+      </div>
+    </figcaption>
+    <div class="bottom-wrap-payment">
+      <figcaption class="info-wrap">
+        <div class="row">
+          <div class="col-md-9 col-xs-9">
+            <a href="#" class="title">${{item.price}}</a>
+            <span class="rated">VISA Platinum</span>
+          </div>
+        </div>
+      </figcaption>
     </div>
+    <div class="bottom-wrap">
+      <a href="#" class="btn btn-primary float-right" id="checkout-button">
+        Buy Now
+      </a>
+      <div class="price-wrap">
+        <a href="#" class="btn btn-warning float-left"> Back </a>
+      </div>
+    </div>
+  </figure>
 </div>
 
-{% endblock %}
+{% endblock %} {% block js %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js "></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+<script src="https://js.stripe.com/v3/"></script>
+<script type="text/javascript">
+    // Create an instance of the Stripe object with your publishable API key
+    var stripe = Stripe("{{stripe_pub_key}}");
+    var checkoutButton = document.getElementById("checkout-button");
+    checkoutButton.addEventListener("click", function () {
+      fetch("http://127.0.0.1:8000/create-checkout-session/{{item.id}}/", {
+        method: "POST",
+        credentials: 'same-origin',
+        mode: 'same-origin',
+        headers: {
+          "Content-Type": "application/json",
+          'Accept': 'application/json',
+          'X-CSRFToken' : document.querySelector('[name=csrfmiddlewaretoken]').value
+
+        },
+      })
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (session) {
+          return stripe.redirectToCheckout({ sessionId: session.id });
+        })
+        .then(function (result) {
+          if (result.error) {
+            alert(result.error.message);
+          }
+        })
+        .catch(function (error) {
+          console.error("Error:", error);
+        });
+    });
+</script>
+
+{% endblock js %}
